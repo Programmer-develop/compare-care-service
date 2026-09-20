@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Care Providers Registration</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Montserrat', sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f4f4;
+    }
+    header {
+      background-color: #343a40;
+      color: white;
+      padding: 16px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 15px;
+      margin: 0;
+      padding: 0;
+    }
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 6px 10px;
+    }
+    nav ul li a:hover {
+      background-color: #495057;
+      border-radius: 4px;
+    }
+
+    /* Hero */
+    .hero {
+      background-image: url('images/nursingcare.jpg');
+      background-size: cover;
+      background-position: 50% 20%;
+      height: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      position: relative;
+      color: white;
+      text-align: left;
+      padding-left: 60px;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+    .hero h1 {
+      position: relative;
+      font-size: 64px;
+      font-weight: 700;
+      z-index: 1;
+      line-height: 1.3;
+      max-width: 90%;
+    }
+.cta-btn {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #007BFF;
+  color: white;
+  padding: 12px 24px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  z-index: 2;
+  margin-top: 20px;
+}
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.4);
+    }
+    .modal-content {
+      background-color: #fff;
+      margin: 5% auto;
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 600px;
+      position: relative;
+      animation: fadeIn 0.3s ease-in-out;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    }
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #dc3545;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 25px;
+      height: 25px;
+      font-size: 16px;
+      line-height: 25px;
+      text-align: center;
+      cursor: pointer;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+    .form-group label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 8px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    input[type="file"] {
+      padding: 4px;
+    }
+    .form-group textarea {
+      height: 70px;
+      resize: vertical;
+    }
+    .form-group input[type="submit"] {
+      background-color: #28a745;
+      color: white;
+      font-size: 15px;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-top: 8px;
+    }
+    .form-group input[type="submit"]:hover {
+      background-color: #218838;
+    }
+	  
+	  
+  </style>
+	
+	
+		<style>
+/* --- Mobile Responsive Styles --- */
+@media screen and (max-width: 768px) {
+  header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  /* Make the form full width and stack its fields */
+  header form {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    width: 100% !important;
+    padding: 10px !important;
+    box-sizing: border-box;
+  }
+
+  header form > div {
+    padding: 8px 10px !important;
+    border-right: none !important;
+    margin-bottom: 10px;
+  }
+
+  /* Inputs and select full width */
+  header form input,
+  header form select {
+    width: 100% !important;
+    margin-top: 5px !important;
+    font-size: 14px !important;
+  }
+
+  /* Center search button */
+  header form button {
+    margin: 0 auto !important;
+    padding: 8px !important;
+  }
+
+  /* Navigation stacked vertically */
+  header nav ul {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    padding-left: 0;
+  }
+
+  header nav ul li a {
+    display: block;
+    padding: 8px 10px;
+  }
+	
+	  .hero h1 {
+    font-size: 28px !important;   /* Reduce font size for mobile */
+    line-height: 1.2 !important;
+  }
+
+  /* Allow wrapping for the spans on small screens */
+  .hero h1 span {
+    white-space: normal !important;
+  }
+
+  .hero {
+    padding-left: 20px !important;  /* Reduce left padding */
+    padding-right: 20px !important; /* Add right padding */
+    text-align: center !important;   /* Center the heading on mobile */
+  }
+
+  .cta-btn {
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    margin-top: 15px !important;
+    padding: 10px 20px !important;
+    font-size: 14px !important;
+  }
+}
+</style>
+	
+		<style>
+@media screen and (max-width: 768px) {
+  section {
+    padding: 40px 20px !important; /* Reduce padding on mobile */
+  }
+
+  section h2 {
+    font-size: 28px !important;     /* Reduce heading size */
+    margin-bottom: 20px !important;
+  }
+
+  section p {
+    font-size: 16px !important;     /* Reduce paragraph size */
+    line-height: 1.5 !important;    /* Slightly tighter line spacing */
+    text-align: left !important;    /* Optional: align left for readability */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  section h2 {
+    font-size: 24px !important;     /* Even smaller for small phones */
+  }
+
+  section p {
+    font-size: 14px !important;
+  }
+}
+		
+		
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Compare Your Care Needs</div>
+<form action="search_providers.php" method="POST"
+      style="display: flex; align-items: center; background: white; border-radius: 40px; overflow: hidden; box-shadow: 0 0 10px rgba(0,0,0,0.1); width: fit-content; padding: 5px 10px;">
+
+  <!-- Location -->
+  <div style="padding: 10px 20px; border-right: 1px solid #ddd;">
+    <label style="display: block; font-weight: bold; font-size: 13px; color: #003f5f;">Location</label>
+    <input type="text" name="search" placeholder="Company or Postcode" 
+           style="border: none; outline: none; font-size: 14px; margin-top: 5px; color: #333; background: transparent;">
+  </div>
+
+  <!-- Service -->
+  <div style="padding: 10px 20px; position: relative;">
+    <label style="display: block; font-weight: bold; font-size: 13px; color: #003f5f;">Service</label>
+    <select name="service" 
+            style="border: none; outline: none; font-size: 14px; margin-top: 5px; color: #333; background: transparent; padding-right: 28px; appearance: none;
+                   background: url('arrow.PNG') no-repeat right center; background-size: 16px 16px;">
+      <option value="" disabled selected>What are you looking for?</option>
+      <option value="Nursing Care">Nursing Care</option>
+      <option value="Domiciliary Care">Domiciliary Care</option>
+      <option value="Residential Care">Residential Care</option>
+      <option value="Learning Disabilities Care">Learning Disabilities Care</option>
+    </select>
+  </div>
+
+  <!-- Search Button -->
+<button type="submit"
+        style="background-color: white; padding: 10px; height: auto; display: flex; align-items: center; justify-content: center; border: none; border-radius: 50%; cursor: pointer; box-shadow: 0 0 8px rgba(0,0,0,0.1);">
+  <img src="search.png" alt="Search" style="width: 26px; height: 26px;">
+</button>
+</form>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+
+      <li><a href="nursing.html">Nursing Care</a></li>
+      <li><a href="domiciliary.html">Domiciliary Care</a></li>
+      <li><a href="residential.html">Residential Care</a></li>
+		<li><a href="learning.html">Learning Disabilities Care</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="hero">
+  <div>
+<h1>
+  <span style="white-space: nowrap;">Enhancing the reach and</span><br>
+  <span style="white-space: nowrap;">impact of your care</span><br>
+  <span style="white-space: nowrap;">services</span>
+</h1>
+    <button class="cta-btn" onclick="openModal()">Register Care Provider</button>
+  </div>
+</div>
+
+<section style="padding: 60px 100px; background-color: #fff; text-align: center;">
+  <h2 style="font-size: 50px; color: #222; margin-bottom: 30px; font-weight: 700;">
+    Our complimentary service guides clients to the right care options with ease
+  </h2>
+  <p style="font-size: 22px; line-height: 1.8; color: #444;">
+    We receive consistent referrals from hospital teams for patients who are preparing for discharge and require ongoing care.<br><br>
+    Our dedicated Care Advisors work closely with both discharge coordinators and families to understand individual care requirements and preferences. Based on this, they reach out to appropriate care providers to confirm availability and suitability.<br><br>
+    If your service delivers high-quality care and aligns with our clients’ needs, CareConnect can connect you directly with those seeking your support.
+  </p>
+</section>
+
+<!-- Modal Form -->
+<div id="providerModal" class="modal">
+  <div class="modal-content">
+    <button class="close-btn" onclick="closeModal()">&times;</button>
+    <h2>Care Providers Registration</h2>
+    <form action="submit_providers.php" method="POST" enctype="multipart/form-data">
+      <div class="form-group"><label>Organization Name</label><input type="text" name="org_name" required></div>
+      <div class="form-group"><label>Address</label><input type="text" name="address" required></div>
+      <div class="form-group"><label>Postcode</label><input type="text" name="postcode" required></div>
+      <div class="form-group"><label>Country</label><input type="text" name="country" required></div>
+		
+		
+		  <!-- New Care Dropdown Field -->
+ <div class="form-group"> 
+  <label>Care</label><br>
+  <label><input type="checkbox" name="care_type[]" value="Nursing Care"> Nursing Care</label><br>
+  <label><input type="checkbox" name="care_type[]" value="Domiciliary Care"> Domiciliary Care</label><br>
+  <label><input type="checkbox" name="care_type[]" value="Residential Care"> Residential Care</label><br>
+  <label><input type="checkbox" name="care_type[]" value="Learning Disabilities Care"> Learning Disabilities Care</label>
+</div>
+      <div class="form-group"><label>Description</label><textarea name="description" required></textarea></div>
+      <div class="form-group"><label>CQC</label><input type="text" name="cqc" required></div>
+      <div class="form-group">
+        <label>Status</label>
+        <select name="status" required>
+          <option value="">--Select--</option>
+          <option value="Good">Good</option>
+          <option value="Excellent">Excellent</option>
+          <option value="Bad">Bad</option>
+        </select>
+      </div>
+<div class="form-group">
+  <label>Rate Cards</label>
+  <div id="rate-card-wrapper">
+    <input type="file" name="rate_cards[]" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx,.xls,.xlsx,.txt,.csv" required>
+  </div>
+  <button type="button" onclick="addRateCardInput()" style="margin-top: 10px;">➕ Add More</button>
+  <small>You can upload up to 4 files. Accepted formats: PDF, JPG, DOCX, etc.</small>
+</div>
+      <div class="form-group">
+        <label>Upload Images</label>
+        <div id="image-upload-wrapper">
+          <input type="file" name="images[]" accept="image/*" onchange="previewImage(this)" required>
+        </div>
+        <button type="button" onclick="addImageInput()" style="margin-top: 10px;">➕ Add More</button>
+        <div id="image-previews" style="margin-top: 10px; display: flex; gap: 10px; flex-wrap: wrap;"></div>
+      </div>
+      <div class="form-group"><input type="submit" value="Submit"></div>
+    </form>
+  </div>
+</div>
+
+<script>
+  function openModal() {
+    document.getElementById('providerModal').style.display = 'block';
+  }
+
+  function closeModal() {
+    document.getElementById('providerModal').style.display = 'none';
+  }
+
+  window.onclick = function(event) {
+    const modal = document.getElementById('providerModal');
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+
+  function addImageInput() {
+    const wrapper = document.getElementById('image-upload-wrapper');
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.name = 'images[]';
+    input.accept = 'image/*';
+    input.onchange = function () {
+      previewImage(this);
+    };
+    wrapper.appendChild(document.createElement('br'));
+    wrapper.appendChild(input);
+  }
+
+  function previewImage(input) {
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const img = document.createElement('img');
+        img.src = e.target.result;
+        img.style.width = "150px";
+        img.style.height = "150px";
+        img.style.border = "1px solid #ccc";
+        img.style.borderRadius = "5px";
+        document.getElementById('image-previews').appendChild(img);
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+</script>
+	
+	<script>
+  let rateCardCount = 1;
+
+  function addRateCardInput() {
+    if (rateCardCount >= 4) {
+      alert("You can only upload up to 4 rate card files.");
+      return;
+    }
+    const wrapper = document.getElementById('rate-card-wrapper');
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.name = 'rate_cards[]';
+    input.accept = '.pdf,.jpg,.jpeg,.png,.doc,.docx,.xls,.xlsx,.txt,.csv';
+    input.style.marginTop = '10px';
+    wrapper.appendChild(input);
+    rateCardCount++;
+  }
+</script>
+	
+	
+	
+	
+		<!-- Footer -->
+<footer style="background-color: #343a40; color: #fff; padding: 40px 20px; margin-top: 60px;">
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; max-width: 1200px; margin: auto;">
+    
+    <!-- About -->
+    <div style="flex: 1 1 30%; margin-bottom: 20px;">
+      <h3 style="font-family: 'Montserrat', sans-serif;">Care Portal</h3>
+      <p style="line-height: 1.6;">Connecting families, hospitals,<br> and care providers with trusted<br> care solutions. Compassionate<br> support at every step.</p>
+    </div>
+
+    <!-- Quick Links -->
+    <div style="flex: 1 1 30%; margin-bottom: 20px;">
+      <h4 style="font-family: 'Montserrat', sans-serif;">Quick Links</h4>
+      <ul style="list-style: none; padding: 0; line-height: 1.8;">
+        <li><a href="index.html" style="color: #fff; text-decoration: none;">Home</a></li>
+       
+        <li><a href="nursing.html" style="color: #fff; text-decoration: none;">Nursing Care</a></li>
+        <li><a href="domiciliary.html" style="color: #fff; text-decoration: none;">DomiciliaryCare</a></li>
+        <li><a href="residential.html" style="color: #fff; text-decoration: none;">Residential Care</a></li>
+		  <li><a href="learning.html" style="color: #fff; text-decoration: none;">Learning Disabilities Care</a></li>
+        <li><a href="contact.html" style="color: #fff; text-decoration: none;">Contact</a></li>
+      </ul>
+    </div>
+
+    <!-- Contact Info -->
+    <div style="flex: 1 1 30%; margin-bottom: 20px;">
+      <h4 style="font-family: 'Montserrat', sans-serif;">Contact Us</h4>
+      <p style="line-height: 1.8;">
+        Phone: <a href="tel:01883338444" style="color: #fff; text-decoration: none;">01883 338 444</a><br>
+        Email: <a href="mailto:info@careportal.com" style="color: #fff; text-decoration: none;">info@careportal.com</a><br>
+        Address: 123 Care Street, Croydon, UK
+      </p>
+    </div>
+
+  </div>
+
+  <div style="text-align: center; padding-top: 20px; border-top: 1px solid #555; margin-top: 30px; font-size: 14px;">
+    &copy; 2025 Care Portal. All rights reserved.
+  </div>
+</footer>
+</body>
+</html>

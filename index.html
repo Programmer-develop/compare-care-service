@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Care Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+	  h1, h2, h3, h4, h5, h6 {
+  font-family: 'Montserrat', sans-serif;
+}
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f4f4;
+    }
+    header {
+      background-color: #343a40;
+      color: white;
+      padding: 16px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 15px;
+      margin: 0;
+      padding: 0;
+    }
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 6px 10px;
+    }
+    nav ul li a:hover {
+      background-color: #495057;
+      border-radius: 4px;
+    }
+	  
+	      /* Background image section */
+.hero {
+  background-image: url('images/blogbg.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Align content to the left */
+  position: relative;
+  color: white;
+  text-align: left; /* Align text to left */
+  padding-left: 60px; /* Add spacing from the left edge */
+}
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5); /* dark overlay for better text readability */
+    }
+
+.hero h1 {
+  position: relative;
+  font-size: 64px; /* increased from 36px to 48px */
+  font-weight: 700;
+  z-index: 1;
+  line-height: 1.3;
+  max-width: 90%;
+}
+
+	  .cta-btn {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #007BFF;
+  color: white;
+  padding: 12px 24px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  z-index: 2;
+  margin-top: 20px;
+}
+    .welcome {
+      text-align: center;
+      margin-top: 80px;
+      font-size: 26px;
+      color: #333;
+    }
+	  
+	      /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.4);
+    }
+    .modal-content {
+      background-color: #fff;
+      margin: 5% auto;
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 600px;
+      position: relative;
+      animation: fadeIn 0.3s ease-in-out;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    }
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #dc3545;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 25px;
+      height: 25px;
+      font-size: 16px;
+      line-height: 25px;
+      text-align: center;
+      cursor: pointer;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+    .form-group label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 8px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    input[type="file"] {
+      padding: 4px;
+    }
+    .form-group textarea {
+      height: 70px;
+      resize: vertical;
+    }
+    .form-group input[type="submit"] {
+      background-color: #28a745;
+      color: white;
+      font-size: 15px;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-top: 8px;
+    }
+    .form-group input[type="submit"]:hover {
+      background-color: #218838;
+    }
+	  
+	  
+
+  </style>
+	
+	
+	
+	<style>
+/* --- Mobile Responsive Styles --- */
+@media screen and (max-width: 768px) {
+  header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  /* Make the form full width and stack its fields */
+  header form {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    width: 100% !important;
+    padding: 10px !important;
+    box-sizing: border-box;
+  }
+
+  header form > div {
+    padding: 8px 10px !important;
+    border-right: none !important;
+    margin-bottom: 10px;
+  }
+
+  /* Inputs and select full width */
+  header form input,
+  header form select {
+    width: 100% !important;
+    margin-top: 5px !important;
+    font-size: 14px !important;
+  }
+
+  /* Center search button */
+  header form button {
+    margin: 0 auto !important;
+    padding: 8px !important;
+  }
+
+  /* Navigation stacked vertically */
+  header nav ul {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    padding-left: 0;
+  }
+
+  header nav ul li a {
+    display: block;
+    padding: 8px 10px;
+  }
+	
+	  .hero h1 {
+    font-size: 28px !important;   /* Reduce font size for mobile */
+    line-height: 1.2 !important;
+  }
+
+  /* Allow wrapping for the spans on small screens */
+  .hero h1 span {
+    white-space: normal !important;
+  }
+
+  .hero {
+    padding-left: 20px !important;  /* Reduce left padding */
+    padding-right: 20px !important; /* Add right padding */
+    text-align: center !important;   /* Center the heading on mobile */
+  }
+
+  .cta-btn {
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    margin-top: 15px !important;
+    padding: 10px 20px !important;
+    font-size: 14px !important;
+  }
+}
+</style>
+	
+	<style>
+@media screen and (max-width: 768px) {
+  section {
+    padding: 40px 20px !important; /* Reduce padding on mobile */
+  }
+
+  section h2 {
+    font-size: 28px !important;     /* Reduce heading size */
+    margin-bottom: 20px !important;
+  }
+
+  section p {
+    font-size: 16px !important;     /* Reduce paragraph size */
+    line-height: 1.5 !important;    /* Slightly tighter line spacing */
+    text-align: left !important;    /* Optional: align left for readability */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  section h2 {
+    font-size: 24px !important;     /* Even smaller for small phones */
+  }
+
+  section p {
+    font-size: 14px !important;
+  }
+}
+		
+		
+</style>
+	<style>
+/* Make the map container responsive on smaller screens */
+@media screen and (max-width: 768px) {
+  #location div[style*="width: 600px"] {
+    width: 90% !important;
+    height: auto !important;
+  }
+
+  #location iframe {
+    width: 100% !important;
+    height: 300px !important;
+  }
+
+  #location h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  #location h2 {
+    font-size: 24px;
+  }
+
+  #location iframe {
+    height: 250px !important;
+  }
+}
+</style>
+	
+
+	<style>
+@media screen and (max-width: 768px) {
+  /* Make all cards full width on mobile */
+  section.care-cards > div {
+    flex: 1 1 100% !important;  /* Force full width */
+    max-width: 100% !important; /* Prevent shrinking */
+  }
+
+  /* Reduce card padding for mobile */
+  section.care-cards .card-content {
+    padding: 20px !important;
+  }
+
+  /* Smaller headings on mobile */
+  section.care-cards .card-content h2 {
+    font-size: 28px !important;
+  }
+
+  /* Smaller paragraph text */
+  section.care-cards .card-content p {
+    font-size: 15px !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Smaller buttons */
+  section.care-cards .card-content a {
+    padding: 8px 16px !important;
+    font-size: 14px !important;
+  }
+
+  /* Reduce gap between cards */
+  section.care-cards {
+    gap: 20px !important;
+  }
+}
+</style>
+	
+
+	<style>
+.care-card {
+  flex: 1 1 45%;
+  min-height: 400px;
+  position: relative;
+  color: white;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.care-card .overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0,0,0,0.55);
+  z-index: 1;
+}
+
+.card-content {
+  position: relative;
+  padding: 40px;
+  z-index: 2;
+}
+
+.card-content h2 {
+  font-size: 36px;
+  font-family: 'Montserrat', sans-serif;
+  margin-bottom: 15px;
+}
+
+.card-content p {
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.card-btn {
+  margin-top: 20px;
+  display: inline-block;
+  padding: 10px 24px;
+  background: transparent;
+  border: 2px solid;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.card-btn:hover {
+  background: white;
+  color: #A7E075 !important;
+}
+
+/* Mobile View */
+@media (max-width: 768px) {
+  .care-card {
+    flex: 1 1 100%; /* One card per row */
+    min-height: 300px;
+    padding: 20px;
+  }
+  .card-content h2 {
+    font-size: 28px;
+  }
+  .card-content p {
+    font-size: 15px;
+  }
+  .card-btn {
+    padding: 8px 20px;
+    font-size: 14px;
+  }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Compare Your Care Needs</div>
+<form action="search_providers.php" method="POST"
+      style="display: flex; align-items: center; background: white; border-radius: 40px; overflow: hidden; box-shadow: 0 0 10px rgba(0,0,0,0.1); width: fit-content; padding: 5px 10px;">
+
+  <!-- Location -->
+  <div style="padding: 10px 20px; border-right: 1px solid #ddd;">
+    <label style="display: block; font-weight: bold; font-size: 13px; color: #003f5f;">Location</label>
+    <input type="text" name="search" placeholder="Company or Postcode" 
+           style="border: none; outline: none; font-size: 14px; margin-top: 5px; color: #333; background: transparent;">
+  </div>
+
+  <!-- Service -->
+  <div style="padding: 10px 20px; position: relative;">
+    <label style="display: block; font-weight: bold; font-size: 13px; color: #003f5f;">Service</label>
+    <select name="service" 
+            style="border: none; outline: none; font-size: 14px; margin-top: 5px; color: #333; background: transparent; padding-right: 28px; appearance: none;
+                   background: url('arrow.PNG') no-repeat right center; background-size: 16px 16px;">
+      <option value="" disabled selected>What are you looking for?</option>
+      <option value="Nursing Care">Nursing Care</option>
+      <option value="Domiciliary Care">Domiciliary Care</option>
+      <option value="Residential Care">Residential Care</option>
+      <option value="Learning Disabilities Care">Learning Disabilities Care</option>
+    </select>
+  </div>
+
+  <!-- Search Button -->
+<button type="submit"
+        style="background-color: white; padding: 10px; height: auto; display: flex; align-items: center; justify-content: center; border: none; border-radius: 50%; cursor: pointer; box-shadow: 0 0 8px rgba(0,0,0,0.1);">
+  <img src="search.png" alt="Search" style="width: 26px; height: 26px;">
+</button>
+</form>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+
+      <li><a href="nursing.html">Nursing Care</a></li>
+      <li><a href="domiciliary.html">Domiciliary Care</a></li>
+      <li><a href="residential.html">Residential Care</a></li>
+		<li><a href="learning.html">Learning Disabilities Care</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+	
+<div class="hero">
+	<div>
+<h1>
+  <span style="white-space: nowrap;">Connecting families and</span><br>
+  <span style="white-space: nowrap;">providers with trusted</span><br>
+  <span style="white-space: nowrap;">care solutions</span>
+</h1>
+	
+	<button class="cta-btn" onclick="openModal()">Register Care Provider</button>
+</div></div>
+
+<section style="padding: 60px 100px; background-color: #fff; text-align: center;">
+  <h2 style="font-size: 50px; color: #222; margin-bottom: 30px; font-weight: 700;">
+    Free assistance to choose the best care
+  </h2>
+  <p style="font-size: 22px; line-height: 1.8; color: #444; text-align: center;">
+    At CareSeekers, we know how difficult it can be for families and hospitals when a patient is ready to leave the hospital but still needs ongoing care. Finding the right support takes time, effort, and insight. That’s why our team of skilled and compassionate Care Consultants is here to assist—working swiftly to match individuals who are self-funding with suitable care homes or home care services.
+    <br><br>
+    We take pride in offering a warm, personalised service from start to finish. Our strong connections with care providers, hospitals, and families allow us to present a wide range of care choices quickly and efficiently. Whether it's short-term recovery support or long-term care, we ensure timely access to the most fitting care options tailored to each person's unique needs.
+  </p>
+</section>
+	
+	
+	
+<!-- Video Section -->
+<section style="padding: 60px 100px; background-color: #f9f9f9; text-align: center;">
+  <h2 style="font-size: 42px; color: #222; margin-bottom: 30px; font-weight: 700;">
+    Watch How We Support You
+  </h2>
+  <p style="font-size: 20px; color: #555; margin-bottom: 40px;">
+    Learn how our team works with care providers for seamless care transitions.
+  </p>
+  <video controls style="max-width: 100%; width: 800px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+    <source src="videos/care-intro.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</section>
+	
+
+	
+
+	
+	
+	
+<section class="care-cards" style="padding: 60px 40px; background-color: #f0f0f8;">
+  <div class="cards-container" style="display: flex; flex-wrap: wrap; gap: 30px; justify-content: center;">
+
+    <!-- Families -->
+    <div class="care-card" style="background: url('images/familybg.jpg') center/cover no-repeat;">
+      <div class="overlay"></div>
+      <div class="card-content">
+        <h2 style="color: #76D8F5;">Nursing Care</h2>
+        <p>Looking for compassionate medical support? Our nursing care delivers professional, round-the-clock attention to ensure comfort, dignity, and well-being.</p>
+        <a href="nursing.html" class="card-btn" style="color: #A7E075; border-color: #A7E075;">Learn more</a>
+      </div>
+    </div>
+
+    <!-- Hospitals -->
+    <div class="care-card" style="background: url('images/hospitalsbg.jpg') center/cover no-repeat;">
+      <div class="overlay"></div>
+      <div class="card-content">
+        <h2 style="color: #76D8F5;">Domiciliary Care</h2>
+        <p>Looking for personalised support at home? Our domiciliary care helps you live independently with professional assistance tailored to your daily needs.</p>
+        <a href="domiciliary.html" class="card-btn" style="color: #A7E075; border-color: #A7E075;">Learn more</a>
+      </div>
+    </div>
+
+    <!-- Care Providers -->
+    <div class="care-card" style="background: url('images/careprovidersbg.jpg') center/cover no-repeat;">
+      <div class="overlay"></div>
+      <div class="card-content">
+        <h2 style="color: #76D8F5;">Residential Care</h2>
+        <p>Looking for a supportive living environment? Our residential care offers 24/7 assistance, comfort, and companionship in a safe, welcoming home.</p>
+        <a href="residential.html" class="card-btn" style="color: #A7E075; border-color: #A7E075;">Learn more</a>
+      </div>
+    </div>
+
+    <!-- Live In Care -->
+    <div class="care-card" style="background: url('images/liveincarebg.jpg') center/cover no-repeat;">
+      <div class="overlay"></div>
+      <div class="card-content">
+        <h2 style="color: #76D8F5;">Learning Disabilities Care</h2>
+        <p>Looking for specialised support for learning disabilities? Our care services promote independence, confidence, and a fulfilling life tailored to individual needs.</p>
+        <a href="learning.html" class="card-btn" style="color: #A7E075; border-color: #A7E075;">Learn more</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+	
+	<section style="padding: 60px 100px; background-color: #fff;">
+  <h2 style="font-size: 42px; font-family: 'Montserrat', sans-serif; color: #222; text-align: center; margin-bottom: 40px;">Get In Touch</h2>
+
+  <div style="display: flex; flex-wrap: wrap; gap: 40px; justify-content: center; align-items: flex-start;">
+    
+    <!-- Contact Form -->
+    <form style="flex: 1 1 45%; display: flex; flex-direction: column; gap: 20px;" method="post" action="sendmail.php">
+      <input type="text" name="name" placeholder="Your Name" required style="padding: 12px; font-size: 16px; border: 1px solid #ccc; border-radius: 6px;">
+      <input type="tel" name="phone" placeholder="Phone Number" required style="padding: 12px; font-size: 16px; border: 1px solid #ccc; border-radius: 6px;">
+      <input type="email" name="email" placeholder="Email Address" required style="padding: 12px; font-size: 16px; border: 1px solid #ccc; border-radius: 6px;">
+      <input type="text" name="place" placeholder="Place" style="padding: 12px; font-size: 16px; border: 1px solid #ccc; border-radius: 6px;">
+      <textarea name="message" placeholder="Your Message" rows="5" style="padding: 12px; font-size: 16px; border: 1px solid #ccc; border-radius: 6px;"></textarea>
+      <button type="submit" style="padding: 12px 24px; background-color: #343a40; color: white; border: none; border-radius: 6px; font-size: 16px; cursor: pointer;">Send Message</button>
+    </form>
+
+    <!-- Image -->
+    <div style="flex: 1 1 45%;">
+      <img src="images/formbg.jpg" alt="Contact Us" style="width: 100%; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+    </div>
+
+  </div>
+</section>
+	
+	
+	
+
+	<!-- Modal Form -->
+<div id="providerModal" class="modal">
+  <div class="modal-content">
+    <button class="close-btn" onclick="closeModal()">&times;</button>
+    <h2>Care Providers Registration</h2>
+<form action="submit_providers.php" method="POST" enctype="multipart/form-data"> 
+	<div class="form-group">
+		<label>Organization Name</label>
+		<input type="text" name="org_name" required>
+	</div> 
+	<div class="form-group">
+		<label>Address</label>
+		<input type="text" name="address" required>
+	</div> 
+	<div class="form-group">
+		<label>Postcode</label>
+		<input type="text" name="postcode" required>
+	</div> 
+	<div class="form-group">
+		<label>Country</label>
+		<input type="text" name="country" required></div> 
+	<!-- New Care Dropdown Field -->
+<div class="form-group"> 
+  <label>Care</label><br>
+  <label><input type="checkbox" name="care_type[]" value="Nursing Care"> Nursing Care</label><br>
+  <label><input type="checkbox" name="care_type[]" value="Domiciliary Care"> Domiciliary Care</label><br>
+  <label><input type="checkbox" name="care_type[]" value="Residential Care"> Residential Care</label><br>
+  <label><input type="checkbox" name="care_type[]" value="Learning Disabilities Care"> Learning Disabilities Care</label>
+</div>
+	<div class="form-group">
+		<label>Description</label>
+		<textarea name="description" required></textarea>
+	</div>
+	<div class="form-group">
+		<label>CQC</label>
+		<input type="text" name="cqc" required>
+	</div>
+	<div class="form-group"> 
+		<label>Status</label> 
+		<select name="status" required> 
+			<option value="">--Select--</option>
+			<option value="Good">Good</option>
+			<option value="Excellent">Excellent</option>
+			<option value="Bad">Bad</option> 
+		</select> 
+	</div>
+	<div class="form-group"> 
+		<label>Rate Cards</label>
+		<div id="rate-card-wrapper">
+			<input type="file" name="rate_cards[]" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx,.xls,.xlsx,.txt,.csv" >
+		</div>
+		<button type="button" onclick="addRateCardInput()" style="margin-top: 10px;">➕ Add More</button> <small>You can upload up to 4 files. Accepted formats: PDF, JPG, DOCX, etc.</small>
+	</div> 
+	<div class="form-group">
+		<label>Upload Images</label>
+		<div id="image-upload-wrapper"> 
+			<input type="file" name="images[]" accept="image/*" onchange="previewImage(this)" required> 
+		</div>
+		<button type="button" onclick="addImageInput()" style="margin-top: 10px;">➕ Add More</button> 
+		<div id="image-previews" style="margin-top: 10px; display: flex; gap: 10px; flex-wrap: wrap;"></div>
+	</div> 
+	<div class="form-group">
+		<input type="submit" value="Submit"></div>
+	  </form>
+  </div>
+</div>
+	
+	
+	<section id="location" style="text-align: center; padding: 40px 0;">
+  <h2>Our Location</h2>
+  <div style="
+      display: inline-block;
+      width: 600px;
+      height: 600px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      overflow: hidden;
+    ">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8354345093745!2d144.95373631590442!3d-37.817209979751954!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d43f3f1f1f1%3A0x5045675218ce6e0!2sMelbourne%20VIC%2C%20Australia!5e0!3m2!1sen!2sau!4v1622101628802!5m2!1sen!2sau"
+      width="600"
+      height="600"
+      style="border:0;"
+      allowfullscreen=""
+      loading="lazy">
+    </iframe>
+  </div>
+</section>
+	
+	
+	
+	<script>
+  function openModal() {
+    document.getElementById('providerModal').style.display = 'block';
+  }
+
+  function closeModal() {
+    document.getElementById('providerModal').style.display = 'none';
+  }
+
+  window.onclick = function(event) {
+    const modal = document.getElementById('providerModal');
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+
+  function addImageInput() {
+    const wrapper = document.getElementById('image-upload-wrapper');
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.name = 'images[]';
+    input.accept = 'image/*';
+    input.onchange = function () {
+      previewImage(this);
+    };
+    wrapper.appendChild(document.createElement('br'));
+    wrapper.appendChild(input);
+  }
+
+  function previewImage(input) {
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const img = document.createElement('img');
+        img.src = e.target.result;
+        img.style.width = "150px";
+        img.style.height = "150px";
+        img.style.border = "1px solid #ccc";
+        img.style.borderRadius = "5px";
+        document.getElementById('image-previews').appendChild(img);
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+</script>
+	
+	<script>
+  let rateCardCount = 1;
+
+  function addRateCardInput() {
+    if (rateCardCount >= 4) {
+      alert("You can only upload up to 4 rate card files.");
+      return;
+    }
+    const wrapper = document.getElementById('rate-card-wrapper');
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.name = 'rate_cards[]';
+    input.accept = '.pdf,.jpg,.jpeg,.png,.doc,.docx,.xls,.xlsx,.txt,.csv';
+    input.style.marginTop = '10px';
+    wrapper.appendChild(input);
+    rateCardCount++;
+  }
+</script>
+
+	
+	<!-- Footer -->
+<footer style="background-color: #343a40; color: #fff; padding: 40px 20px; margin-top: 60px;">
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; max-width: 1200px; margin: auto;">
+    
+    <!-- About -->
+    <div style="flex: 1 1 30%; margin-bottom: 20px;">
+      <h3 style="font-family: 'Montserrat', sans-serif;">Care Portal</h3>
+      <p style="line-height: 1.6;">Connecting families, hospitals,<br> and care providers with trusted<br> care solutions. Compassionate<br> support at every step.</p>
+    </div>
+
+    <!-- Quick Links -->
+    <div style="flex: 1 1 30%; margin-bottom: 20px;">
+      <h4 style="font-family: 'Montserrat', sans-serif;">Quick Links</h4>
+      <ul style="list-style: none; padding: 0; line-height: 1.8;">
+        <li><a href="index.html" style="color: #fff; text-decoration: none;">Home</a></li>
+       
+        <li><a href="nursing.html" style="color: #fff; text-decoration: none;">Nursing Care</a></li>
+        <li><a href="domiciliary.html" style="color: #fff; text-decoration: none;">DomiciliaryCare</a></li>
+        <li><a href="residential.html" style="color: #fff; text-decoration: none;">Residential Care</a></li>
+		  <li><a href="learning.html" style="color: #fff; text-decoration: none;">Learning Disabilities Care</a></li>
+        <li><a href="contact.html" style="color: #fff; text-decoration: none;">Contact</a></li>
+      </ul>
+    </div>
+
+    <!-- Contact Info -->
+    <div style="flex: 1 1 30%; margin-bottom: 20px;">
+      <h4 style="font-family: 'Montserrat', sans-serif;">Contact Us</h4>
+      <p style="line-height: 1.8;">
+        Phone: <a href="tel:01883338444" style="color: #fff; text-decoration: none;">01883 338 444</a><br>
+        Email: <a href="mailto:info@careportal.com" style="color: #fff; text-decoration: none;">info@careportal.com</a><br>
+        Address: 123 Care Street, Croydon, UK
+      </p>
+    </div>
+
+  </div>
+
+  <div style="text-align: center; padding-top: 20px; border-top: 1px solid #555; margin-top: 30px; font-size: 14px;">
+    &copy; 2025 Care Portal. All rights reserved.
+  </div>
+</footer>
+</body>
+</html>
